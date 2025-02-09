@@ -39,8 +39,10 @@ Embeddings.prototype.fetch = async function (input) {
             await this.cache.load();
         }
         embedding = await this.cache.get(input, this.model)
-        log(`found cached embedding for ${this.service}/${this.model}`);
-        return embedding;
+        if( embedding ) {
+            log(`found cached embedding for ${this.service}/${this.model}`);
+            return embedding;
+        }
     }
 
     log(`fetching embedding from ${this.service}/${this.model} with ${JSON.stringify(this.options)}`);
